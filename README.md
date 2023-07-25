@@ -10,14 +10,12 @@ Main Face Recognition Module
 ###  - `pip install CMake`
 ###  - `pip install dlib`
 ## Instaling with CUDA Support
-### -Install these pre-requirements:
-```
- - CUDA ToolKit
- - CMake
- - Conda
- - cudnn (inside Conda files)
- - dlib from github
- - Visual Studio C++ (and C++ Build Tools)
- - Anaconda3 or miniconda3
-```
+## Install these pre-requirements:
+### - `CUDA ToolKit`
+### - `CMake` 
+### - `Anaconda3 or miniconda3`
+### - `cudnn (inside conda files)`
+### - `dlib from github`
+### - `Visual Studio and C++ Build Tools`
+### - `Anaconda3 or miniconda3`
 ---
