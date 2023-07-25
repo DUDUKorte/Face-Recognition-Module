@@ -3,7 +3,7 @@ Main Face Recognition Module
 
 # Pre-Requirements
 ##  - `The libraries in requirements.txt`
-##  - `dlib With or without CUDA enabled (wee recommend enable CUDA support)`
+##  - `dlib With or without CUDA enabled (we recommend enable CUDA support)`
 
 # Instaling dlib on Windows
 ## Instaling without CUDA Support
