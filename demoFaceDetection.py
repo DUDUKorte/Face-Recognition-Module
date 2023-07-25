@@ -30,7 +30,7 @@
 
 import cv2
 import mediapipe as mp
-import face_recognition
+import face_recognition, dlib
 
 def get_fastest_encoded_face(frame, locations):
     locations = [locations]
@@ -40,13 +40,17 @@ def get_accurative_encoded_face(frame, locations):
     locations = [locations]
     return face_recognition.face_encodings(frame, None, 1, "large")
 
-def get_encoded_face(frame, locations, upsamples = 1):
+def get_encoded_face(frame, locations, re_samples = 1):
     locations = [locations]
-    return face_recognition.face_encodings(frame, locations, upsamples, "large")
+    return face_recognition.face_encodings(frame, locations, re_samples, "large")
 
 def show_hello_message():
     hello_message = " __    __   _______  __       __        ______      .___________. __    __   _______ .______       _______ \n|  |  |  | |   ____||  |     |  |      /  __  \     |           ||  |  |  | |   ____||   _  \     |   ____|\n|  |__|  | |  |__   |  |     |  |     |  |  |  |    `---|  |----`|  |__|  | |  |__   |  |_)  |    |  |__   \n|   __   | |   __|  |  |     |  |     |  |  |  |        |  |     |   __   | |   __|  |      /     |   __|  \n|  |  |  | |  |____ |  `----.|  `----.|  `--'  |        |  |     |  |  |  | |  |____ |  |\  \----.|  |____ \n|__|  |__| |_______||_______||_______| \______/         |__|     |__|  |__| |_______|| _| `._____||_______|"
     return hello_message
+
+def verf_gpu_acceleration():
+    return dlib.DLIB_USE_CUDA
+
 def show_camera_info(camera_source: cv2.VideoCapture, frame, fps = None, width = None, height = None):
 
     """Draw the default camera Info. (fps and resolution).
@@ -254,7 +258,7 @@ class FaceDetectionMP:
 class FaceDetectionFR:
 
     def __init__(self, model = 'hog',
-                 upsample = 1,
+                 locations_upsample = 0,
                  draw_detections = False,
                  thickness = 1,
                  color = (255,0,0)
@@ -266,7 +270,7 @@ class FaceDetectionFR:
             faster on CPUs. “cnn” is a more accurate deep-learning model which
             is GPU/CUDA accelerated (if available). The default is “hog”.
 
-          upsample: How many times to upsample the image looking for faces.
+          locations_upsample: How many times to upsample the image looking for faces.
             Higher numbers find smaller faces.
           
           draw_detections: If you want to draw boxes around the detected faces
@@ -278,14 +282,14 @@ class FaceDetectionFR:
         """
         #Self declarations
         self.model = model
-        self.upsample = upsample
+        self.locations_upsample = locations_upsample
         self.draw_detections = draw_detections
         self.thickness = thickness
         self.color = color
 
     #Functions
     def get_face_locations(self, frame):
-        face_locations = face_recognition.face_locations(frame, self.upsample, self.model)
+        face_locations = face_recognition.face_locations(frame, self.locations_upsample, self.model)
         if face_locations:
             if self.draw_detections:
                 for face_location in zip(face_locations):

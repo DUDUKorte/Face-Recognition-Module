@@ -177,110 +177,114 @@ def start_facerecognition_face_detection(show_fps = False, show_camera_info = Fa
         success, frame = CAMERA_SOURCE.read()
         face_detected = False
 
-        #ONLY FOR DEBUGGING PURPOSES >>DEMO TEST<<
-        #====================================================================================
-        if optimization_mode_test and success:
-            if current_fps >= fps_limit: # Verify if need to reset fps variable
-                current_fps = 0
+
+        if success:# If the frame was successfuly readed
             
-            if current_fps == 0: # Verify if can do the face detection
+            #ONLY FOR DEBUGGING PURPOSES >>DEMO TEST<<
+            #====================================================================================
+            if optimization_mode_test and success:
+                if current_fps >= fps_limit: # Verify if need to reset fps variable
+                    current_fps = 0
+                
+                if current_fps == 0: # Verify if can do the face detection
 
-                locations = demoFDfr.get_face_locations(frame) # Get the face locations
+                    locations = demoFDfr.get_face_locations(frame) # Get the face locations
 
-                if locations: # If found any face in the frame
+                    if locations: # If found any face in the frame
+                        face_detected = True
+                        for face_location in zip(locations):
+                            face_location = face_location[0]# BUG_FIX: face_location = (values,) have 2 positions
+
+                            pixelsplus = 10 # Safe margin to show detected faces
+                            # Crop the current frame to get just the person's face area
+                            newFrame = frame[face_location[0]-pixelsplus:face_location[2]+pixelsplus,
+                                            face_location[3]-pixelsplus:face_location[1]+pixelsplus] 
+                            try: # Ensures that the newFrame positions are valid
+                                cv2.imshow('Detected Face', newFrame)
+                                cv2.waitKey(1)
+                            except:
+                                print("OUT OF FRAME")
+
+                            #TODO: Definir distância mínima para fazer o reconhecimento facial na pessoa mais próxima á câmera
+                            #=======================================================
+                            #TODO: Face Recognition/Encoding Goes Here
+                            if face_encoder: 
+                                encoding_time_st = time.time()
+                                #encoded_face = demoFaceDetection.get_fastest_encoded_face(frame, face_location)
+                                encoded_face = demoFaceDetection.get_encoded_face(frame, face_location) # Default face encoding, use already detected face locations and (upsample)X times face encoding
+                                encoding_time_end = time.time()
+                                encoding_time = encoding_time_end - encoding_time_st # Calculate the time to locate all the faces in frame
+                                print(f'Encoding Time = {encoding_time}')
+                            #=======================================================
+
+                current_fps+=1
+            #====================================================================================
+            
+            else:
+                
+                print(f'----------------------------------------------------------')
+                locations_time_st = time.time()
+                locations = demoFDfr.get_face_locations(frame) # Get the locations of eah face in the frame
+                locations_time_end = time.time()
+                locations_time = locations_time_end - locations_time_st # Calculate the time to locate all the faces in frame
+                print(f'Locations Time = {locations_time}')
+
+                if locations:
+                    face_detected = True
                     for face_location in zip(locations):
                         face_location = face_location[0]# BUG_FIX: face_location = (values,) have 2 positions
 
                         pixelsplus = 10 # Safe margin to show detected faces
-                        # Crop the current frame to get just the person's face area
                         newFrame = frame[face_location[0]-pixelsplus:face_location[2]+pixelsplus,
-                                        face_location[3]-pixelsplus:face_location[1]+pixelsplus] 
+                                        face_location[3]-pixelsplus:face_location[1]+pixelsplus] # Crop the current frame to get just the person's face area
                         try: # Ensures that the newFrame positions are valid
                             cv2.imshow('Detected Face', newFrame)
                             cv2.waitKey(1)
                         except:
                             print("OUT OF FRAME")
-
+                        
                         #TODO: Definir distância mínima para fazer o reconhecimento facial na pessoa mais próxima á câmera
                         #=======================================================
                         #TODO: Face Recognition/Encoding Goes Here
                         if face_encoder: 
                             encoding_time_st = time.time()
-                            encoded_face = demoFaceDetection.get_fastest_encoded_face(frame, face_location)
+                            # Gets the encoded face from the location gotted before
+                            #encoded_face = demoFaceDetection.get_fastest_encoded_face(frame, face_location) # Use already detected face locations and dont upsample face encoding 
+                            # More encoded face functions options to use
+                            #encoded_face = demoFaceDetection.get_accurative_encoded_face(frame, face_location) # Redetect Faces in image and upsample 1x times face encoding
+                            encoded_face = demoFaceDetection.get_encoded_face(frame, face_location, re_samples=0) # Default face encoding, use already detected face locations and (upsample)X times face encoding
                             encoding_time_end = time.time()
                             encoding_time = encoding_time_end - encoding_time_st # Calculate the time to locate all the faces in frame
                             print(f'Encoding Time = {encoding_time}')
                         #=======================================================
 
-            current_fps+=1
-        #====================================================================================
-        
-        elif success:# If the frame was successfuly readed
+
+            # LANDMARKS STETIC ONLY (4-5 FPS LESS)
+            demoFDmp.draw_landmarks_face(frame, show_stetic_landmarks) if show_stetic_landmarks else 0
+
+
+            # Calculate the FPS and show on the screen
+            currentTime = time.time()
+            fps = 1/(currentTime - previousTime)
+            previousTime = currentTime
+            cv2.putText(frame, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 3) if show_fps else 0
             
-            print(f'----------------------------------------------------------')
-            locations_time_st = time.time()
-            locations = demoFDfr.get_face_locations(frame) # Get the locations of eah face in the frame
-            locations_time_end = time.time()
-            locations_time = locations_time_end - locations_time_st # Calculate the time to locate all the faces in frame
-            print(f'Locations Time = {locations_time}')
+            # Show the camera infos. on the screen
+            demoFaceDetection.show_camera_info(CAMERA_SOURCE, frame) if show_camera_info else 0
 
-            if locations:
-                face_detected = True
-                for face_location in zip(locations):
-                    face_location = face_location[0]# BUG_FIX: face_location = (values,) have 2 positions
-
-                    pixelsplus = 10 # Safe margin to show detected faces
-                    newFrame = frame[face_location[0]-pixelsplus:face_location[2]+pixelsplus,
-                                     face_location[3]-pixelsplus:face_location[1]+pixelsplus] # Crop the current frame to get just the person's face area
-                    try: # Ensures that the newFrame positions are valid
-                        cv2.imshow('Detected Face', newFrame)
-                        cv2.waitKey(1)
-                    except:
-                        print("OUT OF FRAME")
-                    
-                    #TODO: Definir distância mínima para fazer o reconhecimento facial na pessoa mais próxima á câmera
-                    #=======================================================
-                    #TODO: Face Recognition/Encoding Goes Here
-                    if face_encoder: 
-                        encoding_time_st = time.time()
-                        # Gets the encoded face from the location gotted before
-                        encoded_face = demoFaceDetection.get_fastest_encoded_face(frame, face_location)
-                        # More encoded face functions options to use
-                        #encoded_face = demoFaceDetection.get_accurative_encoded_face(frame, face_location)
-                        #encoded_face = demoFaceDetection.get_encoded_face(frame, face_location)
-                        encoding_time_end = time.time()
-                        encoding_time = encoding_time_end - encoding_time_st # Calculate the time to locate all the faces in frame
-                        print(f'Encoding Time = {encoding_time}')
-                    #=======================================================
-
-
-        # LANDMARKS STETIC ONLY (4-5 FPS LESS)
-        demoFDmp.draw_landmarks_face(frame, show_stetic_landmarks) if show_stetic_landmarks else 0
-
-
-        # Calculate the FPS and show on the screen
-        currentTime = time.time()
-        fps = 1/(currentTime - previousTime)
-        previousTime = currentTime
-        cv2.putText(frame, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 3) if show_fps else 0
-        
-        # Show the camera infos. on the screen
-        demoFaceDetection.show_camera_info(CAMERA_SOURCE, frame) if show_camera_info else 0
-
-        
-        frame_time_end = time.time()
-        frame_time = frame_time_end - frame_time_st
-        print(f'Frame Time = {frame_time}')
-        print(f'Face Detected = {face_detected}')
-        print(f'----------------------------------------------------------\n')
-        # Update frame
-        cv2.imshow('Camera', frame)
-        del frame
-        if cv2.waitKey(10) & 0xFF == ord('q'):
-            break
+            
+            frame_time_end = time.time()
+            frame_time = frame_time_end - frame_time_st
+            print(f'Frame Time = {frame_time}')
+            print(f'Face Detected = {face_detected}')
+            print(f'----------------------------------------------------------\n')
+            # Update frame
+            cv2.imshow('Camera', frame)
+            del frame
+            if cv2.waitKey(10) & 0xFF == ord('q'):
+                break
 
     cv2.destroyAllWindows()
-
 
 
 def start_face_recognition():
@@ -435,7 +439,9 @@ def ui_menu():
 
 if __name__ == '__main__':
     DEBUG = False# ONLY FOR DEBUGGING PURPOSES
+    print('INFO: Initializing Camera Source...')
     CAMERA_SOURCE = cv2.VideoCapture(0)
+    print('INFO: Camera initialized!\n')
 
     # Try to use the first camera avaible on User's PC TODO: testar se esse algoritmo para usar a câmera funciona de fato
     # for i in range(0,5):
@@ -446,22 +452,37 @@ if __name__ == '__main__':
     #     else:
     #         pass
     
+    print('INFO: Getting Camera info...')
     FPS = CAMERA_SOURCE.get(5)
+    print('INFO: Camera info get successfuly!\n')
 
+    print('===========================================================')
+    print('INFO: Verifying GPU Acceleration...')
+    print('Face_Recognition WILL USE GPU ACCELERATION (CUDA)') if demoFaceDetection.verf_gpu_acceleration() else print('INFO: Face_Recognition WILL NOT USE GPU ACCELERATION (CUDA)')
+    print('===========================================================\n')
+
+    print('INFO: Creating Mediapipe Objects...')
     # Mediapipe Object Creation
-    demoFDmp = demoFaceDetection.FaceDetectionMP(CAMERA_SOURCE, draw_landmark=True, min_face_detection_confidence=0.5, draw_circle_radius=1, max_num_faces_landmark=1)
+    demoFDmp = demoFaceDetection.FaceDetectionMP(CAMERA_SOURCE, draw_landmark=True, min_face_detection_confidence=0.5, draw_circle_radius=1, max_num_faces_landmark=2)
     demoFDmp.draw_landmark_style = 1
+    print('INFO: Mediapipe objects created!\n')
 
+    print('INFO: Creating face_recognition object...')
     # FaceRecognition Object Creation
     # Models: HOG (Better for use in CPUs) or CNN (better with GPU acceleration)
-    demoFDfr = demoFaceDetection.FaceDetectionFR(model='hog', draw_detections=True, upsample=0, color=(255, 255, 255), thickness=1) 
+    demoFDfr = demoFaceDetection.FaceDetectionFR(model='hog', draw_detections=True, locations_upsample=0, color=(255, 255, 255), thickness=1) 
+    print('face_recognition object created!\n')
 
+    print('INFO: Verifying Debug variables...\n')
     # ONLY FOR DEBUGGING PURPOSES
     if DEBUG:
-        # start_mediapipe_face_detection(show_fps=True, show_camera_info=True, draw=True, upsample=False)
-        start_facerecognition_face_detection(show_fps=True, show_camera_info=True, show_stetic_landmarks=False)
+        print('Starting debugging Test...')
+        #start_mediapipe_face_detection(show_fps=True, show_camera_info=True, draw=True, upsample=False)
+        start_facerecognition_face_detection(show_fps=True, show_camera_info=True, show_stetic_landmarks=False, face_encoder=True)
 
-    ui_menu() # Start the main menu
+    input('Press ENTER to Start the Main System Menu...')
+    ui_menu() # Start the main menu6
+
     if CAMERA_SOURCE: # If Camera source still exists
         CAMERA_SOURCE.release() # release the camera source by freeing the memory
 
