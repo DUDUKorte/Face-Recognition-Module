@@ -5,12 +5,13 @@ Main Face Recognition Module
 ##  - `The libraries in requirements.txt`
 ##  - `dlib With or without CUDA enabled (we recommend enable CUDA support)`
 ---
-# Instaling dlib on Windows with CUDA enabled and disabled
-## **1** Instaling without CUDA Support
-###  - `pip install CMake`
-###  - `pip install dlib`
-## **2** Instaling with CUDA Support
-## **2.1** Install these pre-requirements:
+# Instaling requirements.txt
+## If you want to use dlib with CUDA support, use requirements_wo_dlib.txt
+## ```pip install -r requirements.txt``` or ```pip install -r requirements_wo_dlib.txt```
+---
+# Instaling dlib on Windows with CUDA enabled
+## **1** Instaling with CUDA Support
+## **1.1** Install these pre-requirements:
 ### - `CUDA ToolKit`
 ### - `CMake` 
 ### - `Anaconda3 or miniconda3`
@@ -18,9 +19,9 @@ Main Face Recognition Module
 ### - `dlib from github`
 ### - `Visual Studio and C++ Build Tools`
 ### - `Anaconda3 or miniconda3`
-## **2.2** Unzip dlib folder anywhere
-## **2.3** Create "build" folder inside dlib folder (path/to/your/dlib/build/)
-## **2.4** Configure dlib with CMake
+## **1.2** Unzip dlib folder anywhere
+## **1.3** Create "build" folder inside dlib folder (path/to/your/dlib/build/)
+## **1.4** Configure dlib with CMake
 ### - `Open CMake GUI`
 ### - `Set: where is the source code: /path/to/your/dlib`
 ### - `Set: wheres to build the binaries: /path/to/your/dlib/build`
@@ -30,7 +31,7 @@ Main Face Recognition Module
 ### - `Click "Configure" and wait, when its done, should apear "DLIB WILL USE CUDA"`
 ### ![image](https://github.com/DUDUKorte/Face-Recognition-Module/assets/40546705/bc7f5bb8-0187-4a2e-80ba-9ff6406f60b1)
 
-## **2.5** Install dlib in conda
+## **1.5** Install dlib in conda
 ### - `Go to dlib's folder with anaconda terminal (like ```conda cd your/path/to/dlib``` )`
 ### - `Execute ```python setup.py install``` `
 ### - `Will install dlib in your conda, this will dont work if you dont have cudnn inside conda`
