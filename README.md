@@ -19,9 +19,10 @@ Main Face Recognition Module
 ## - dlib from [github](https://github.com/davisking/dlib/releases/tag/v19.24.2)
 ## - [Visual Studio](https://visualstudio.microsoft.com/pt-br/) and C++ Build Tools
 
-# **2.2** Unzip dlib folder anywhere
-# **2.3** Create "build" folder inside dlib folder (path/to/your/dlib/build/)
-# **2.4** Configure dlib with CMake
+# **2.2** Configuring dlib
+## - `Unzip dlib folder anywhere`
+## - `Create "build" folder inside dlib folder (path/to/your/dlib/build/)`
+## - `Configure dlib with CMake`
 ## - `Open CMake GUI`
 ## - `Set: where is the source code: /path/to/your/dlib`
 ## - `Set: wheres to build the binaries: /path/to/your/dlib/build`
@@ -31,7 +32,7 @@ Main Face Recognition Module
 ## - `Click "Configure" and wait, when its done, should apear "DLIB WILL USE CUDA"`
 ## ![image](https://github.com/DUDUKorte/Face-Recognition-Module/assets/40546705/bc7f5bb8-0187-4a2e-80ba-9ff6406f60b1)
 
-# **2.5** Install dlib in conda
+# **2.3** Install dlib in conda
 ## - Go to dlib's folder with anaconda terminal (like ```conda cd your/path/to/dlib``` )
 ## - Execute ```python setup.py install```
 ## - `Will install dlib in your conda, this will dont work if you dont have cudnn inside conda`
