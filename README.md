@@ -12,12 +12,12 @@ Main Face Recognition Module
 ---
 # **2** Instaling dlib on Windows with CUDA enabled
 # **2.1** Install these pre-requirements:
-## - `CUDA [ToolKit](https://developer.nvidia.com/cuda-downloads)`
-## - `[CMake](https://cmake.org/download/#latest)` 
-## - `[Anaconda3](https://www.anaconda.com/download) or miniconda3`
-## - `[cudnn](https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.3/local_installers/12.x/cudnn-windows-x86_64-8.9.3.28_cuda12-archive.zip/) (just copy cudnn inside /anaconda3/ and /anaconda3/bin/)`
-## - `dlib from [github](https://github.com/davisking/dlib/releases/tag/v19.24.2)`
-## - `[Visual Studio](https://visualstudio.microsoft.com/pt-br/) and C++ Build Tools`
+## - CUDA [ToolKit](https://developer.nvidia.com/cuda-downloads)
+## - [CMake](https://cmake.org/download/#latest)
+## - [Anaconda3](https://www.anaconda.com/download) or miniconda3
+## - [cudnn](https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.3/local_installers/12.x/cudnn-windows-x86_64-8.9.3.28_cuda12-archive.zip/) (just copy cudnn inside /anaconda3/ and /anaconda3/bin/)
+## - dlib from [github](https://github.com/davisking/dlib/releases/tag/v19.24.2)
+## - [Visual Studio](https://visualstudio.microsoft.com/pt-br/) and C++ Build Tools
 
 # **2.2** Unzip dlib folder anywhere
 # **2.3** Create "build" folder inside dlib folder (path/to/your/dlib/build/)
