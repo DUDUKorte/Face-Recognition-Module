@@ -8,17 +8,17 @@ Main Face Recognition Module
 # **1** Instaling requirements.txt
 ## If you want to use dlib with CUDA support, use requirements_wo_dlib.txt
 ## ```pip install -r requirements.txt``` or ```pip install -r requirements_wo_dlib.txt```
-## If you DONT want to use dlib with CUDA support, jump to step **3**
+## If you DONT want to use dlib with CUDA support, jump to step **4**
 ---
 # **2** Instaling dlib on Windows with CUDA enabled
 # **2.1** Install these pre-requirements:
-## - `CUDA ToolKit`
-## - `CMake` 
-## - `Anaconda3 or miniconda3`
-## - `cudnn (just copy cudnn inside /anaconda3/ and /anaconda3/bin/)`
-## - `dlib from github`
-## - `Visual Studio and C++ Build Tools`
-## - `Anaconda3 or miniconda3`
+## - `CUDA [ToolKit](https://developer.nvidia.com/cuda-downloads)`
+## - `[CMake](https://cmake.org/download/#latest)` 
+## - `[Anaconda3](https://www.anaconda.com/download) or miniconda3`
+## - `[cudnn](https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.3/local_installers/12.x/cudnn-windows-x86_64-8.9.3.28_cuda12-archive.zip/) (just copy cudnn inside /anaconda3/ and /anaconda3/bin/)`
+## - `dlib from [github](https://github.com/davisking/dlib/releases/tag/v19.24.2)`
+## - `[Visual Studio](https://visualstudio.microsoft.com/pt-br/) and C++ Build Tools`
+
 # **2.2** Unzip dlib folder anywhere
 # **2.3** Create "build" folder inside dlib folder (path/to/your/dlib/build/)
 # **2.4** Configure dlib with CMake
@@ -44,6 +44,9 @@ print(dlib.DLIB_USE_CUDA)
 ```
 ## - if you get True, enjoy
 ---
-# **3** Using Face Recognition System DEMO
+# **3** Instaling dlib on Linux with CUDA enabled
+## [Guide Here](https://gist.github.com/nguyenhoan1988/ed92d58054b985a1b45a521fcf8fa781)
+---
+# **4** Using Face Recognition System DEMO
 ## - After installing dlib and other libraries from requirements.txt, you just need to run "demoFaceRecognitionSystem.py"
 ---
