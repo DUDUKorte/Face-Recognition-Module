@@ -30,7 +30,7 @@ Main Face Recognition Module
 ## - `When finish the process will apear the dlib's variables`
 ## - `Seacrh for DLIB_USE_CUDA and check the box or set to "ON"`
 ## - `Click "Configure" and wait, when its done, should apear "DLIB WILL USE CUDA"`
-## [Image](https://i.imgur.com/e7HcFjV.png)
+## ![Image](https://i.imgur.com/e7HcFjV.png)
 
 # **2.3** Install dlib in conda
 ## - Go to dlib's folder with anaconda terminal (like ```conda cd your/path/to/dlib``` )
