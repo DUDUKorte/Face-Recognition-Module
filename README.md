@@ -1,10 +1,23 @@
 # Face-Recognition-Module
 Main Face Recognition Module
 
->DEMO v1.0 instalation and usage
 # Pre-Requirements
-###  - `Text`
+##  - `The libraries in requirements.txt`
+##  - `dlib With or without CUDA enabled (wee recommend enable CUDA support)`
 
-# Instaling 
-###  - `Text2`
+# Instaling dlib on Windows
+## Instaling without CUDA Support
+###  - `pip install CMake`
+###  - `pip install dlib`
+## Instaling with CUDA Support
+### -Install these pre-requirements:
+```
+ - CUDA ToolKit
+ - CMake
+ - Conda
+ - cudnn (inside Conda files)
+ - dlib from github
+ - Visual Studio C++ (and C++ Build Tools)
+ - Anaconda3 or miniconda3
+```
 ---
