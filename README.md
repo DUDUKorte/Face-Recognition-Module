@@ -32,7 +32,7 @@ Main Face Recognition Module
 ## ![image](https://github.com/DUDUKorte/Face-Recognition-Module/assets/40546705/bc7f5bb8-0187-4a2e-80ba-9ff6406f60b1)
 
 # **2.5** Install dlib in conda
-## - `Go to dlib's folder with anaconda terminal (like ```conda cd your/path/to/dlib``` )`
+## - `Go to dlib's folder with anaconda terminal (like` ```conda cd your/path/to/dlib``` ` )`
 ## - `Execute ```python setup.py install``` `
 ## - `Will install dlib in your conda, this will dont work if you dont have cudnn inside conda`
 ## - `Like before, should apear "DLIB WILL USE CUDA"`
