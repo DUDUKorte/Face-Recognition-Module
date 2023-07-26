@@ -11,6 +11,7 @@ Main Face Recognition Module
 ## If you DONT want to use dlib with CUDA support, jump to step **4**
 ---
 # **2** Instaling dlib on Windows with CUDA enabled
+# **Video Step by Step Guide (Portuguese)** ---> [link](https://youtu.be/HVBN_PhKGU8) 
 # **2.1** Install these pre-requirements:
 ## - CUDA [ToolKit](https://developer.nvidia.com/cuda-downloads)
 ## - [CMake](https://cmake.org/download/#latest)
