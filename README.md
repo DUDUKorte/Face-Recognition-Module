@@ -7,7 +7,7 @@ Main Face Recognition Module
 ---
 # **1** Instaling requirements.txt
 ## If you want to use dlib with CUDA support, use requirements_wo_dlib.txt
-## ```pip install -r requirements.txt``` or ```pip install -r requirements_wo_dlib.txt```
+## ```pip istall -r requirements.txt``` or ```pip install -r requirements_wo_dlib.txt```
 ## If you DONT want to use dlib with CUDA support, jump to step **4**
 ---
 # **2** Instaling dlib on Windows with CUDA enabled
