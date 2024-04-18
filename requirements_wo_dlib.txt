@@ -19,7 +19,7 @@ numpy==1.25.1
 opencv-contrib-python==4.8.0.74
 opencv-python==4.8.0.74
 packaging==23.1
-Pillow==10.0.0
+Pillow==10.3.0
 protobuf==3.20.3
 psutil==5.9.5
 pycparser==2.21
